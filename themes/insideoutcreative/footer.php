@@ -1,64 +1,90 @@
-<?php
-echo '<footer>';
-echo '<section class="pt-5">';
-echo '<div class="container">';
-echo '<div class="row justify-content-center">';
-echo '<div class="col-md-5 text-center pb-5">';
-echo '<a href="' . home_url() . '">';
-
-$logo = get_field('logo','options'); 
-$logoFooter = get_field('logo_footer','options'); 
-
+<footer class="" style="">
+<section class="pt-5 pb-5">
+<div class="container">
+<div class="row justify-content-center align-items-center">
+<div class="col-lg-4 col-md-6 col-10 text-center">
+<a href="<?php echo home_url(); ?>/resources/">
+<?php $logo = get_field('logo','options'); $logoFooter = get_field('logo_footer','options'); 
 if($logoFooter){
 echo wp_get_attachment_image($logoFooter['id'],'full',"",['class'=>'w-100 h-auto']); 
 } elseif($logo) {
 echo wp_get_attachment_image($logo['id'],'full',"",['class'=>'w-100 h-auto']);
 }
-
-echo '</a>';
-echo '</div>';
+?>
+</a>
+</div>
+<?php
 echo '</div>';
 echo '</div>';
 echo '</section>';
 
-echo '<section class="pt-5 bg-accent-dark">';
-echo '<div class="container">';
-echo '<div class="row justify-content-center">';
-echo '<div class="col-12">';
+echo '<section class="position-relative bg-accent-dark" style="padding:50px 0;" id="">';
 
+    $bgImg = get_sub_field('background_image');
+
+    if($bgImg){
+        echo wp_get_attachment_image($bgImg['id'],'full','',[
+            'class'=>'w-100 h-100 position-absolute bg-img',
+            'style'=>'top:0;left:0;object-fit:cover;pointer-events:none;'
+        ]);
+    }
+
+    echo '<div class="position-absolute" style="top:0px;left:0;" id="contact"></div>';
+    echo '<div class="container">';
+    echo '<div class="row justify-content-start align-items-start">';
+
+    // if(have_rows('content_top')): while(have_rows('content_top')): the_row();
+    echo '<div class="col-lg-12 text-center pb-5 ' . get_sub_field('content_col_classes') . '" style="' . get_sub_field('content_col_style') . '">';
+
+    echo '<h2 class="bold text-white mb-0 h1" style="letter-spacing:.2em;">ABOUT US</h2>';
+    echo '<h3 class="bold h5" style="color:#b9b3be;">CONTACT</h3>';
+
+    echo '</div>';
+    // endwhile; endif;
+
+    // if(have_rows('content_bottom')): while(have_rows('content_bottom')): the_row();
+    echo '<div class="col-md-6 text-center pb-5 ' . get_sub_field('content_col_classes') . '" style="' . get_sub_field('content_col_style') . '">';
+
+    echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="true"]');
+
+    echo '</div>';
+    // endwhile; endif;
+
+    echo '<div class="col-md-4">';
+
+    // echo do_shortcode('[social_icons class="" style=""]');
+
+    echo '<div class="text-white">';
+    echo get_field('website_message','options');
+    echo '</div>';
+
+    echo '</div>';
+
+    echo '<div class="col-12 pt-5 text-center">';
 wp_nav_menu(array(
 'menu' => 'footer',
-'menu_class'=>'menu d-flex flex-wrap list-unstyled justify-content-center text-white text-uppercase'
-));
+'menu_class'=>'menu d-flex flex-wrap list-unstyled justify-content-center text-uppercase'
+)); 
 
-echo '</div>';
-echo '<div class="col-12 text-center text-white">';
-
-echo get_template_part('partials/si');
-
-echo '<div class="text-gray-1 pt-4">';
-
-the_field('website_message','options');
-
-echo '</div>';
-echo '</div>';
-echo '</div>';
-echo '</div>';
-echo '</section>';
-echo '<div class="bg-gray text-center pt-3 pb-3 pl-5 pr-5">';
-    echo '<div class="d-flex justify-content-center align-items-center">';
-        echo '<a href="https://insideoutcreative.io/" target="_blank" rel="noopener noreferrer" style="" class="">';
-        echo '<img src="https://insideoutcreative.io/wp-content/uploads/2022/04/created-by-inside-out-creative.png" style="width:150px;" class="h-auto ml-2" alt="">';
-        // echo '<img src="https://insideoutcreative.io/wp-content/uploads/2022/06/created-by-inside-out-creative-black.png" style="width:150px;" class="h-auto ml-2" alt="">';
+echo '<a href="https://insideoutcreative.io/" target="_blank" rel="noopener noreferrer" style="" class="">';
+        echo '<img src="https://insideoutcreative.io/wp-content/uploads/2023/01/developed-by-inside-out-creative-gray.png" style="width:150px;" class="h-auto ml-2" alt="">';
         echo '</a>';
-    echo '</div>';
+
+
+// echo wp_get_attachment_image(85,'full','',['class'=>'h-auto','style'=>'width:200px']);
 echo '</div>';
+
+    echo '</div>';
+    echo '</div>';
+
+    echo '</section>';
+
+
+
 echo '</footer>';
 
 if(get_field('footer', 'options')) { the_field('footer', 'options'); }
 
-wp_footer();
-
-echo '</body>';
-echo '</html>';
-?>
+wp_footer(); ?>
+</body>
+</html>
