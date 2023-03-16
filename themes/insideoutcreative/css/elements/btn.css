@@ -12,7 +12,8 @@
 }
 
 .btn-main {
-    background: var(--accent-primary);
+    background: transparent;
+    border: 2px solid var(--accent-secondary);
     padding: 10px 25px;
     transition: all .25s ease-in-out;
     display: inline-block;

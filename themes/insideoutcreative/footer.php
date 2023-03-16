@@ -1,19 +1,22 @@
-<footer class="" style="">
-<section class="pt-5 pb-5">
-<div class="container">
-<div class="row justify-content-center align-items-center">
-<div class="col-lg-4 col-md-6 col-10 text-center">
-<a href="<?php echo home_url(); ?>/resources/">
-<?php $logo = get_field('logo','options'); $logoFooter = get_field('logo_footer','options'); 
+<?php
+
+echo '<footer class="" style="">';
+echo '<section class="pt-5 pb-5">';
+echo '<div class="container">';
+echo '<div class="row justify-content-center align-items-center">';
+echo '<div class="col-lg-4 col-md-6 col-10 text-center">';
+echo '<a href="' . home_url() . '/resources/">';
+
+$logo = get_field('logo','options'); $logoFooter = get_field('logo_footer','options'); 
 if($logoFooter){
 echo wp_get_attachment_image($logoFooter['id'],'full',"",['class'=>'w-100 h-auto']); 
 } elseif($logo) {
 echo wp_get_attachment_image($logo['id'],'full',"",['class'=>'w-100 h-auto']);
 }
-?>
-</a>
-</div>
-<?php
+
+echo '</a>';
+echo '</div>';
+
 echo '</div>';
 echo '</div>';
 echo '</section>';
@@ -33,26 +36,26 @@ echo '<section class="position-relative bg-accent-dark" style="padding:50px 0;" 
     echo '<div class="container">';
     echo '<div class="row justify-content-start align-items-start">';
 
-    // if(have_rows('content_top')): while(have_rows('content_top')): the_row();
+
     echo '<div class="col-lg-12 text-center pb-5 ' . get_sub_field('content_col_classes') . '" style="' . get_sub_field('content_col_style') . '">';
 
     echo '<h2 class="bold text-white mb-0 h1" style="letter-spacing:.2em;">ABOUT US</h2>';
     echo '<h3 class="bold h5" style="color:#b9b3be;">CONTACT</h3>';
 
     echo '</div>';
-    // endwhile; endif;
 
-    // if(have_rows('content_bottom')): while(have_rows('content_bottom')): the_row();
-    echo '<div class="col-md-6 text-center pb-5 ' . get_sub_field('content_col_classes') . '" style="' . get_sub_field('content_col_style') . '">';
+
+
+    echo '<div class="col-md-6 text-center pb-md-0 pb-5 ' . get_sub_field('content_col_classes') . '" style="' . get_sub_field('content_col_style') . '">';
 
     echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="true"]');
 
     echo '</div>';
-    // endwhile; endif;
+
 
     echo '<div class="col-md-4">';
 
-    // echo do_shortcode('[social_icons class="" style=""]');
+
 
     echo '<div class="text-white">';
     echo get_field('website_message','options');
@@ -71,7 +74,7 @@ echo '<a href="https://insideoutcreative.io/" target="_blank" rel="noopener nore
         echo '</a>';
 
 
-// echo wp_get_attachment_image(85,'full','',['class'=>'h-auto','style'=>'width:200px']);
+
 echo '</div>';
 
     echo '</div>';
