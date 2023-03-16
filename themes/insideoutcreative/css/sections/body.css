@@ -1,5 +1,6 @@
 :root {
   --accent-primary: #7a3995;
+  --accent-primary-dark: #320c48;
   --accent-secondary: #ab9f7a;
 }
 
@@ -27,6 +28,10 @@ body.nav-open {
 
 .bg-accent {
   background: var(--accent-primary);
+}
+
+.bg-accent-dark {
+  background: var(--accent-primary-dark);
 }
 
 a.bg-accent:hover {

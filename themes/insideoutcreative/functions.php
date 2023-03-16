@@ -1,6 +1,6 @@
 <?php
 
-function rais_stylesheets() {
+function onerentalatatime_stylesheets() {
 wp_enqueue_style('style', get_stylesheet_uri() );
 
 wp_enqueue_style('bootstrap', get_theme_file_uri('/css/bootstrap.min.css'));
@@ -38,9 +38,9 @@ wp_enqueue_style('aspira', get_theme_file_uri('/aspira-font/aspira-font.css'));
 wp_enqueue_style('coromant-garamond', '//use.typekit.net/fqe2slt.css');
 
 }
-add_action('wp_enqueue_scripts', 'rais_stylesheets');
+add_action('wp_enqueue_scripts', 'onerentalatatime_stylesheets');
 // for footer
-function rais_stylesheets_footer() {
+function onerentalatatime_stylesheets_footer() {
 	// wp_enqueue_style('style-footer', get_theme_file_uri('/css/style-footer.css'));
 	// owl carousel
 	wp_enqueue_style('owl.carousel.min', get_theme_file_uri('/owl-carousel/owl.carousel.min.css'));
@@ -76,7 +76,7 @@ function rais_stylesheets_footer() {
 		}
 	}
 	
-add_action('get_footer', 'rais_stylesheets_footer');
+add_action('get_footer', 'onerentalatatime_stylesheets_footer');
 
 // loads enqueued javascript files deferred
 function mind_defer_scripts( $tag, $handle, $src ) {
@@ -100,7 +100,7 @@ function mind_defer_scripts( $tag, $handle, $src ) {
   } 
   add_filter( 'script_loader_tag', 'mind_defer_scripts', 10, 3 );
 
-function rais_menus() {
+function onerentalatatime_menus() {
  register_nav_menus( array(
    'primary' => __( 'Primary' )));
 register_nav_menus( array(
@@ -110,7 +110,7 @@ register_nav_menus( array(
  add_theme_support('post-thumbnails');
 }
 
-add_action('after_setup_theme', 'rais_menus');
+add_action('after_setup_theme', 'onerentalatatime_menus');
 
 if( function_exists('acf_add_options_page') ) {
 
@@ -205,6 +205,63 @@ function spacer_shortcode( $atts, $content = null ) {
 }
 
 add_shortcode( 'spacer', 'spacer_shortcode' );
+
+
+function social_media_icons( $atts, $content = null ) {
+
+	$a = shortcode_atts( array(
+
+		'class' => '',
+
+		'style' => '',
+
+		'icon-class' => '',
+
+		'icon-style' => ''
+
+	), $atts );
+
+	$socialIcons = '';
+
+	if(have_rows('social_icons','options')): 
+		$socialIcons .= '<div class="si d-flex flex-wrap ' . esc_attr($a['class']) . '" style="' . esc_attr($a['style']) . '">';
+		while(have_rows('social_icons','options')): the_row(); 
+	$svgOrImg = get_sub_field('svg_or_image');
+	$socialLink = get_sub_field('link');
+	$svg = get_sub_field('svg');
+	$image = get_sub_field('image');
+	
+	$socialLink_url = $socialLink['url'];
+	$socialLink_title = $socialLink['title'];
+	$socialLink_target = $socialLink['target'] ? $socialLink['target'] : '_self';
+	
+	$socialIcons .= '<a href="' . $socialLink_url . '" target="' . $socialLink_target . '" style="text-decoration:none;" class="si-icon-link">';
+	
+	if($svgOrImg == 'SVG') {
+	
+		$socialIcons .= '<div class="svg-icon">';
+		$socialIcons .= $svg;
+		$socialIcons .= '</div>';
+	} elseif($svgOrImg == 'Image') {
+	
+		$socialIcons .= wp_get_attachment_image($image['id'],'full','',['class'=>'img-si']);
+	
+	}
+	$socialIcons .= '</a>';
+	
+	endwhile; 
+	
+	$socialIcons .= '</div>';
+	endif; 
+
+	return $socialIcons;
+	// return get_template_part('partials/si');
+
+	// [social_icons class="" style=""]
+
+}
+
+add_shortcode( 'social_icons', 'social_media_icons' );
 
 // ENABLE WOOCOMMERCE
 // add_action('after_setup_theme',function() {

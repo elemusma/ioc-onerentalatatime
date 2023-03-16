@@ -21,7 +21,7 @@ echo '</div>';
 echo '</div>';
 echo '</section>';
 
-echo '<section class="pt-5 bg-accent">';
+echo '<section class="pt-5 bg-accent-dark">';
 echo '<div class="container">';
 echo '<div class="row justify-content-center">';
 echo '<div class="col-12">';
