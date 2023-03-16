@@ -81,14 +81,71 @@ if($layout == 'Documents & Resources'){
 
     echo '<div class="col-lg-9 text-center ' . get_sub_field('content_col_classes') . '" style="' . get_sub_field('content_col_style') . '">';
 
+    
+    echo '<div data-aos="fade-up">';
     echo get_sub_field('content');
-
     echo '</div>';
 
     echo '</div>';
 
     echo '</div>';
 
+    echo '</div>';
+
+    echo '</section>';
+
+    endwhile; endif;
+} elseif ($layout == 'Videos') {
+    if(have_rows('videos_group')): while(have_rows('videos_group')): the_row();
+
+    echo '<section class="position-relative content-section ' . get_sub_field('classes') . '" style="padding:50px 0;' . get_sub_field('style') . '" id="' . get_sub_field('id') . '">';
+
+    $bgImg = get_sub_field('background_image');
+
+    if($bgImg){
+        echo wp_get_attachment_image($bgImg['id'],'full','',[
+            'class'=>'w-100 h-100 position-absolute bg-img',
+            'style'=>'top:0;left:0;object-fit:cover;pointer-events:none;'
+        ]);
+    }
+
+
+    echo '<div class="container">';
+    if(get_sub_field('content')) {
+        echo '<div class="row justify-content-center">';
+        echo '<div class="col-lg-9 text-center pb-5 ' . get_sub_field('content_col_classes') . '" style="' . get_sub_field('content_col_style') . '">';
+
+        echo get_sub_field('content');
+
+        echo '</div>';
+        echo '</div>';
+    }
+
+    if(have_rows('videos_repeater')):
+        echo '<div class="row justify-content-center">';
+        $videosCounter = 0;
+        while(have_rows('videos_repeater')): the_row();
+        $videosCounter++;
+
+        if ($videosCounter > 2){
+            $videosCounter = 1;
+        }
+
+        echo '<div class="col-md-6 text-center pt-2 pb-2 ' . get_sub_field('video_classes') . '" style="' . get_sub_field('video_style') . '" data-aos="fade-up" data-aos-delay="' . $videosCounter . '00">';
+
+        echo '<div class="video">';
+        echo get_sub_field('video_url');
+        echo '</div>';
+
+        echo '</div>';
+
+        endwhile;
+        echo '</div>';
+    endif;
+
+    echo '</div>';
+
+    
     echo '</section>';
 
     endwhile; endif;
@@ -110,9 +167,15 @@ if($layout == 'Documents & Resources'){
     if( $gallery ): 
     echo '<div class="container">';
     echo '<div class="row">';
-            
+    $galleryCounter = 0;
     foreach( $gallery as $image ):
+        $galleryCounter++;
+
+        if ($galleryCounter > 4){
+            $galleryCounter = 1;
+        }
     echo '<div class="col-lg-3 col-md-4 col-6 col col-portfolio mt-3 mb-3 overflow-h d-flex align-items-center justify-content-center text-center">';
+    echo '<div data-aos="fade-up" data-aos-delay="' . $galleryCounter . '00">';
     // echo '<div class="position-relative">';
     // echo '<a href="' . wp_get_attachment_image_url($image['id'], 'full') . '" data-lightbox="image-set" data-title="' . $image['title'] . '">';
     echo wp_get_attachment_image($image['id'], 'full','',[
@@ -121,6 +184,7 @@ if($layout == 'Documents & Resources'){
     ] );
     // echo '</a>';
     // echo '</div>';
+    echo '</div>';
     echo '</div>';
     endforeach; 
     echo '</div>';
@@ -145,10 +209,12 @@ if($layout == 'Documents & Resources'){
 
     $image = get_sub_field('image');
 
+    echo '<div data-aos="fade-up">';
     echo wp_get_attachment_image($image['id'], 'full','',[
         'class'=>'w-100 h-auto ' . get_sub_field('image_col_classes'),
         'style'=>'' . get_sub_field('image_col_classes')
     ]);
+    echo '</div>';
 
     echo '</section>';
     endwhile; endif;
