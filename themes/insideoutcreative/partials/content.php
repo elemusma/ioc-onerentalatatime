@@ -17,7 +17,7 @@ if($layout == 'Documents & Resources'){
         
     if($title){
         echo '<div class="position-absolute" style="top:50%;left:50%;transform:translate(-50%,-50%);">';
-        echo '<h1 class="text-white bold mb-0" style="font-size:4vw;">' . $title . '</h1>';
+        echo '<h1 class="text-white bold mb-0" style="font-size:5vw;">' . $title . '</h1>';
         echo '</div>';
     }
     echo '<div class="container-fluid">';
@@ -92,10 +92,47 @@ if($layout == 'Documents & Resources'){
     echo '</section>';
 
     endwhile; endif;
+} elseif ($layout == 'Gallery') { 
+    if(have_rows('gallery_group')): while(have_rows('gallery_group')): the_row();
+
+    echo '<section class="position-relative gallery-section ' . get_sub_field('classes') . '" style="background:#ebebeb;padding:25px 0;' . get_sub_field('style') . '" id="' . get_sub_field('id') . '">';
+
+    $bgImg = get_sub_field('background_image');
+
+    if($bgImg){
+        echo wp_get_attachment_image($bgImg['id'],'full','',[
+            'class'=>'w-100 h-100 position-absolute bg-img',
+            'style'=>'top:0;left:0;object-fit:cover;pointer-events:none;'
+        ]);
+    }
+
+    $gallery = get_sub_field('gallery');
+    if( $gallery ): 
+    echo '<div class="container">';
+    echo '<div class="row">';
+            
+    foreach( $gallery as $image ):
+    echo '<div class="col-lg-3 col-md-4 col-6 col col-portfolio mt-3 mb-3 overflow-h d-flex align-items-center justify-content-center text-center">';
+    // echo '<div class="position-relative">';
+    // echo '<a href="' . wp_get_attachment_image_url($image['id'], 'full') . '" data-lightbox="image-set" data-title="' . $image['title'] . '">';
+    echo wp_get_attachment_image($image['id'], 'full','',[
+        'class'=>'h-auto',
+        'style'=>'width:90%;object-fit:contain;'
+    ] );
+    // echo '</a>';
+    // echo '</div>';
+    echo '</div>';
+    endforeach; 
+    echo '</div>';
+    echo '</div>';
+    endif;
+
+    echo '</section>';
+    endwhile; endif;
 } elseif ($layout == 'Image') {
     if(have_rows('image_group')): while(have_rows('image_group')): the_row();
 
-    echo '<section class="position-relative image-section ' . get_sub_field('classes') . '" style="' . get_sub_field('style') . '" id="' . get_sub_field('id') . '">';
+    echo '<section class="position-relative image-section ' . get_sub_field('classes') . '" style="padding:50px 0;' . get_sub_field('style') . '" id="' . get_sub_field('id') . '">';
 
     $bgImg = get_sub_field('background_image');
 
