@@ -56,6 +56,12 @@ button.owl-prev {
   height: 100%;
 }
 
+.owl-stage-outer,
+.owl-stage,
+.owl-item {
+  height: 100%;
+}
+
 .lb-nav a.lb-next {
   background: url('https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/images/next.png') right 48% no-repeat !important;
   opacity: 1 !important;

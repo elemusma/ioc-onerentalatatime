@@ -263,6 +263,42 @@ function social_media_icons( $atts, $content = null ) {
 
 add_shortcode( 'social_icons', 'social_media_icons' );
 
+function get_latest_videos_from_youtube_channel() {
+    // Load the Google Client Library
+    if (!class_exists('Google_Client')) {
+        // require_once(plugin_dir_path(__FILE__) . 'google-api-php-client/autoload.php');
+		require_once get_template_directory() . '/google-api-php-client--PHP7.4/vendor/autoload.php';
+
+    }
+
+    // Set up the client
+    $client = new Google_Client();
+    $client->setDeveloperKey($GLOBALS['youtube']);
+    $youtube = new Google_Service_YouTube($client);
+
+    // Send a request to the API to get the latest 10 videos from a specific channel
+    $searchResponse = $youtube->search->listSearch('id,snippet', array(
+        'channelId' => 'UCzDAvtSdnoLEz_re0ABaANg',
+        'type' => 'video',
+        'order' => 'date',
+        'maxResults' => 10,
+    ));
+
+    // Print the results
+    ob_start();
+    foreach ($searchResponse['items'] as $searchResult) {
+        echo '<div class="video">';
+        echo '<h2>' . $searchResult['snippet']['title'] . '</h2>';
+        echo '<p>' . $searchResult['snippet']['description'] . '</p>';
+        echo '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $searchResult['id']['videoId'] . '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        echo '</div>';
+    }
+    return ob_get_clean();
+}
+
+add_shortcode('latest_videos', 'get_latest_videos_from_youtube_channel');
+
+
 // ENABLE WOOCOMMERCE
 // add_action('after_setup_theme',function() {
 //     add_theme_support('woocommerce');
