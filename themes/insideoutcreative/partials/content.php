@@ -326,12 +326,12 @@ if($layout == 'Documents & Resources'){
     echo '<div class="col-lg-3 col-md-4 col-6 col col-portfolio mt-3 mb-3 overflow-h d-flex align-items-center justify-content-center text-center">';
     echo '<div data-aos="fade-up" data-aos-delay="' . $galleryCounter . '00">';
     // echo '<div class="position-relative">';
-    // echo '<a href="' . wp_get_attachment_image_url($image['id'], 'full') . '" data-lightbox="image-set" data-title="' . $image['title'] . '">';
+    echo '<a href="' . $image['description'] . '" target="_blank">';
     echo wp_get_attachment_image($image['id'], 'full','',[
         'class'=>'h-auto',
         'style'=>'width:90%;object-fit:contain;'
     ] );
-    // echo '</a>';
+    echo '</a>';
     // echo '</div>';
     echo '</div>';
     echo '</div>';

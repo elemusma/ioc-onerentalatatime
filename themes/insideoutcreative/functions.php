@@ -278,25 +278,33 @@ function get_latest_videos_from_youtube_channel() {
 
     // Send a request to the API to get the latest 10 videos from a specific channel
     $searchResponse = $youtube->search->listSearch('id,snippet', array(
+        // 'channelId' => $GLOBALS['youtube'],
         'channelId' => 'UCzDAvtSdnoLEz_re0ABaANg',
+        // 'channelId' => 'UCb2EJvSa8WRBFLzYXgJFf5g',
+        // 'channelId' => 'OneRentalataTime',
+		// 'forUsername' => 'OneRentalataTime',
         'type' => 'video',
         'order' => 'date',
-        'maxResults' => 10,
+        'maxResults' => 4,
     ));
 
     // Print the results
     ob_start();
+	echo '<div class="row">';
     foreach ($searchResponse['items'] as $searchResult) {
+		echo '<div class="col-lg-6 mb-3">';
         echo '<div class="video">';
-        echo '<h2>' . $searchResult['snippet']['title'] . '</h2>';
-        echo '<p>' . $searchResult['snippet']['description'] . '</p>';
+        // echo '<h3>' . $searchResult['snippet']['title'] . '</h3>';
+        // echo '<p>' . $searchResult['snippet']['description'] . '</p>';
         echo '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $searchResult['id']['videoId'] . '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-        echo '</div>';
-    }
+			echo '</div>';
+			echo '</div>';
+	}
+	echo '</div>';
     return ob_get_clean();
 }
 
-add_shortcode('latest_videos', 'get_latest_videos_from_youtube_channel');
+add_shortcode('youtube_videos', 'get_latest_videos_from_youtube_channel');
 
 
 // ENABLE WOOCOMMERCE
