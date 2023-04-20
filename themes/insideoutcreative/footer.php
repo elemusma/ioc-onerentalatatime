@@ -8,6 +8,7 @@ echo '<div class="col-lg-4 col-md-6 col-10 text-center">';
 echo '<a href="' . home_url() . '/resources/">';
 
 $logo = get_field('logo','options'); $logoFooter = get_field('logo_footer','options'); 
+
 if($logoFooter){
 echo wp_get_attachment_image($logoFooter['id'],'full',"",['class'=>'w-100 h-auto']); 
 } elseif($logo) {

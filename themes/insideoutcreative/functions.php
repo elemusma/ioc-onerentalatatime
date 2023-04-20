@@ -279,7 +279,8 @@ function get_latest_videos_from_youtube_channel() {
     // Send a request to the API to get the latest 10 videos from a specific channel
     $searchResponse = $youtube->search->listSearch('id,snippet', array(
         // 'channelId' => $GLOBALS['youtube'],
-        'channelId' => 'UCzDAvtSdnoLEz_re0ABaANg',
+        'channelId' => 'UCNlzIzvhDCggZYg5DU-jQ5g',
+        // 'channelId' => 'UCzDAvtSdnoLEz_re0ABaANg',
         // 'channelId' => 'UCb2EJvSa8WRBFLzYXgJFf5g',
         // 'channelId' => 'OneRentalataTime',
 		// 'forUsername' => 'OneRentalataTime',
@@ -305,6 +306,7 @@ function get_latest_videos_from_youtube_channel() {
 }
 
 add_shortcode('youtube_videos', 'get_latest_videos_from_youtube_channel');
+
 
 
 // ENABLE WOOCOMMERCE
