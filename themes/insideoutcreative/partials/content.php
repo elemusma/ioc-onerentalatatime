@@ -74,7 +74,7 @@ if($layout == 'Documents & Resources'){
     echo '</div>';
 
     echo '<div class="">';
-    echo '<span class="col-resources-title h3 text-white">' . esc_html( $link_title ) . '</span>';
+    echo '<span class="col-resources-title text-white" style="font-size:1.50rem;">' . esc_html( $link_title ) . '</span>';
     echo '<div class="bg-accent mt-3" style="height:8px;width:75px;"></div>';
 
     echo '<div class="resources-col-description text-white pt-2 small">';
@@ -455,7 +455,7 @@ echo '<section class="" style="padding:75px 0;">';
     // start of instagram
 // query the user media
 $fields = "id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,username";
-$token = "IGQVJYM0hyRm5pQ2ZAHTWV0SDgwcGNaVzh1VzlrVFhIb25VcV96QkFLdjVnY0EwLWNCUnVXd2R1cEdwSXQxM0U1ZA1B1aHJLWGwwazJmQUk3VEtqZAUo4MDFYeFRyaEdWdFY3cGxHNnphbG1ZANHQ1WE9YWAZDZD";
+$token = $GLOBALS['instagram'];
 $limit = 9;
 
 $json_feed_url="https://graph.instagram.com/me/media?fields={$fields}&access_token={$token}&limit={$limit}";
@@ -508,6 +508,48 @@ echo '</div>';
 echo '</div>';
 // end of instagram
 echo '</section>';
+    endwhile; endif;
+} elseif ($layout == 'Timeline Carousel'){
+    if(have_rows('timeline_carousel_group')): while(have_rows('timeline_carousel_group')): the_row();
+    wp_enqueue_style('timeline-carousel', get_theme_file_uri('/css/sections/timeline-carousel.css'));
+    echo '<section class="position-relative timeline-carousel-section ' . get_sub_field('classes') . '" style="' . get_sub_field('style') . '" id="' . get_sub_field('id') . '">';
+
+    // $bgImg = get_sub_field('background_image');
+
+    // if($bgImg){
+    //     echo wp_get_attachment_image($bgImg['id'],'full','',[
+    //         'class'=>'w-100 h-100 position-absolute bg-img',
+    //         'style'=>'top:0;left:0;object-fit:cover;pointer-events:none;'
+    //     ]);
+    // }
+
+    if(have_rows('timeline_carousel_repeater')):
+    echo '<div class="timeline-carousel owl-carousel owl-theme arrows-middle">';
+    while(have_rows('timeline_carousel_repeater')): the_row();
+    $image = get_sub_field('image');
+
+    echo '<div class="position-relative col-timeline-carousel" style="padding-top:500px;">';
+
+    echo wp_get_attachment_image($image['id'],'full','',[
+        'class'=>'position-absolute w-100 h-100',
+        'style'=>'top:0;left:0;'
+    ]);
+
+    echo '<div class="position-absolute bg-black w-100 h-100 overlay-hover" style="top:0;left:0;opacity:.75;pointer-events:none;transition:all .25s ease-in-out;"></div>';
+    echo '<div class="position-absolute w-100 h-50" style="background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 45%, rgba(255,255,255,0) 100%);bottom:0;left:0;opacity:.75;pointer-events:none;transition:all .25s ease-in-out;"></div>';
+    
+    echo '<div class="position-relative p-4 text-white">';
+    echo '<h2 class="bold">' . get_sub_field('title') . '</h2>';
+    echo get_sub_field('content');
+    echo '</div>';
+    
+    echo '</div>';
+    endwhile;
+    echo '</div>';
+    endif;
+
+    echo '</section>';
     endwhile; endif;
 }
 
