@@ -65,3 +65,15 @@
 }
 
 /* end of videos */
+
+/* start of courses */
+.courses-col * {
+    transition: all .25s ease-in-out;
+}
+
+.courses-col:hover .courses-col-hover {
+    border-color: var(--accent-primary) !important;
+    /* background: #EFEDE6 !important; */
+}
+
+/* end of courses */

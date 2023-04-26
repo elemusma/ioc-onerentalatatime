@@ -1,15 +1,15 @@
 <?php
 
 function onerentalatatime_stylesheets() {
-wp_enqueue_style('style', get_stylesheet_uri() );
+	wp_enqueue_style('style', get_stylesheet_uri() );
 
-wp_enqueue_style('bootstrap', get_theme_file_uri('/css/bootstrap.min.css'));
-wp_enqueue_style('body', get_theme_file_uri('/css/sections/body.css'));
-wp_enqueue_style('nav', get_theme_file_uri('/css/sections/nav.css'));
-wp_enqueue_style('popup', get_theme_file_uri('/css/sections/popup.css'));
-wp_enqueue_style('hero', get_theme_file_uri('/css/sections/hero.css'));
-wp_enqueue_style('contact', get_theme_file_uri('/css/sections/contact.css'));
-wp_enqueue_style('img', get_theme_file_uri('/css/elements/img.css'));
+	wp_enqueue_style('bootstrap', get_theme_file_uri('/css/bootstrap.min.css'));
+	wp_enqueue_style('body', get_theme_file_uri('/css/sections/body.css'));
+	wp_enqueue_style('nav', get_theme_file_uri('/css/sections/nav.css'));
+	wp_enqueue_style('popup', get_theme_file_uri('/css/sections/popup.css'));
+	wp_enqueue_style('hero', get_theme_file_uri('/css/sections/hero.css'));
+	wp_enqueue_style('contact', get_theme_file_uri('/css/sections/contact.css'));
+	wp_enqueue_style('img', get_theme_file_uri('/css/elements/img.css'));
 
 // if(is_front_page()){
 	wp_enqueue_style('home', get_theme_file_uri('/css/sections/home.css'));
@@ -30,6 +30,7 @@ wp_enqueue_style('footer', get_theme_file_uri('/css/sections/footer.css'));
 wp_enqueue_style('sidebar', get_theme_file_uri('/css/sections/sidebar.css'));
 wp_enqueue_style('social-icons', get_theme_file_uri('/css/sections/social-icons.css'));
 wp_enqueue_style('btn', get_theme_file_uri('/css/elements/btn.css'));
+
 // fonts
 wp_enqueue_style('fonts', get_theme_file_uri('/css/elements/fonts.css'));
 wp_enqueue_style('proxima-nova', get_theme_file_uri('/proxima-nova/proxima-nova.css'));
@@ -39,6 +40,7 @@ wp_enqueue_style('coromant-garamond', '//use.typekit.net/fqe2slt.css');
 
 }
 add_action('wp_enqueue_scripts', 'onerentalatatime_stylesheets');
+
 // for footer
 function onerentalatatime_stylesheets_footer() {
 	// wp_enqueue_style('style-footer', get_theme_file_uri('/css/style-footer.css'));
@@ -126,7 +128,7 @@ function smartwp_remove_wp_block_library_css(){
 		wp_dequeue_style( 'wc-block-style' ); // Remove WooCommerce block CSS
 	}
 } 
-add_action( 'wp_enqueue_scripts', 'smartwp_remove_wp_block_library_css', 100 );
+// add_action( 'wp_enqueue_scripts', 'smartwp_remove_wp_block_library_css', 100 );
 
 // add_filter('show_admin_bar', '__return_false');
 

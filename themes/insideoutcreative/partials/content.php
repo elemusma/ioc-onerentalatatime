@@ -126,11 +126,7 @@ if($layout == 'Documents & Resources'){
 
     echo '<div class="row justify-content-center">';
 
-    echo '<div class="col-lg-9 text-center ' . get_sub_field('content_col_classes') . '" style="' . get_sub_field('content_col_style') . '">';
-    echo '<div data-aos="fade-up">';
-    echo get_sub_field('content');
-    echo '</div>';
-    echo '</div>';
+        echo get_template_part('partials/content-block');
 
     echo '</div>';
 
@@ -193,7 +189,7 @@ if($layout == 'Documents & Resources'){
     echo '<div class="col h-100">';
     
     echo wp_get_attachment_image($image['id'], 'full','',[
-        'class'=>'',
+        'class'=>'h-100',
         'style'=>'object-fit:cover;object-position:top;'
     ] );
     
@@ -550,6 +546,74 @@ echo '</section>';
     endif;
 
     echo '</section>';
+    endwhile; endif;
+
+} elseif($layout == 'Courses'){
+    if(have_rows('courses_group')): while(have_rows('courses_group')): the_row();
+        echo '<section class="position-relative timeline-carousel-section ' . get_sub_field('classes') . '" style="padding:125px 0;background:#fafafa;' . get_sub_field('style') . '" id="' . get_sub_field('id') . '">';
+
+        echo get_template_part('partials/bg-img');
+
+        echo '<div class="container">';
+
+        echo '<div class="row row-content justify-content-center ' . get_sub_field('row_classes') . '" style="' . get_sub_field('row_style') . '">';
+
+
+        echo get_template_part('partials/content-block');
+
+
+        if(have_rows('courses_repeater')): 
+            while(have_rows('courses_repeater')): the_row();
+            $img = get_sub_field('image');
+            $link = get_sub_field('link');
+            $link_url = $link['url'];
+            $link_title = $link['title'];
+            $link_target = $link['target'] ? $link['target'] : '_self';
+            // echo '<a class="bg-accent btn" href="' . esc_url( $link_url ) . '" target="' . esc_attr( $link_target ) . '">' . esc_html( $link_title ) . '</a>';
+
+                echo '<a class="col-lg-4 mb-5 courses-col" href="' . esc_url( $link_url ) . '" target="' . esc_attr( $link_target ) . '">';
+
+                echo '<div class="position-relative h-100 bg-white overflow-h courses-col-hover" style="border-radius:8px;padding-bottom:100px;border:1px solid #fafafa;">';
+
+                    echo wp_get_attachment_image($img['id'],'full','',[
+                        'class'=>'w-100',
+                        'style'=>'height:200px;object-fit:cover;object-position:top;'
+                    ]);
+
+                    echo '<div class="p-4">';
+                    echo '<span class="course-title bold">' . esc_html( $link_title ) . '</span>';
+                    echo '<div class="text-gray small">';
+                    echo get_sub_field('description');
+                    echo '</div>';
+
+                    // echo '<div class="position-relative">';
+                    echo '<div class="d-flex justify-content-between position-absolute" style="bottom:1.5rem;left:1.5rem;">';
+                    echo wp_get_attachment_image(270,'full','',[
+                        'class'=>'',
+                        'style'=>'width:25px;height:25px;border-radius:50%;'
+                    ]);
+                    echo '<p class="mb-0 ml-2">Michael Zuber</p>';
+                    echo '</div>';
+
+                    echo '<div class="position-absolute" style="bottom:1.5rem;right:1.5rem;">';
+                    echo '<span class="course-price"><strong>$</strong>' . get_sub_field('price') . '</span>';
+                    echo '</div>';
+                    // echo '</div>';
+
+                    echo '</div>';
+
+
+                echo '</div>';
+
+                echo '</a>';
+            endwhile; 
+        endif;
+        
+        echo '</div>';
+
+        echo '</div>';
+
+        echo '</section>';
     endwhile; endif;
 }
 
