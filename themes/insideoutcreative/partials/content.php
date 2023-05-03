@@ -615,6 +615,25 @@ echo '</section>';
 
         echo '</section>';
     endwhile; endif;
+} elseif($layout == 'Content Plain'){
+    if(have_rows('content_plain_group')): while(have_rows('content_plain_group')): the_row();
+        echo '<section class="position-relative timeline-carousel-section ' . get_sub_field('classes') . '" style="padding:125px 0;background:#fafafa;' . get_sub_field('style') . '" id="' . get_sub_field('id') . '">';
+
+        echo get_template_part('partials/bg-img');
+
+        echo '<div class="container">';
+
+        echo '<div class="row row-content justify-content-center ' . get_sub_field('row_classes') . '" style="' . get_sub_field('row_style') . '">';
+
+        echo '<div class="col-lg-9 ' . get_sub_field('column_classes') . '" style="' . get_sub_field('column_style') . '">';
+
+        echo get_sub_field('content');
+
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    echo '</section>';
+endwhile; endif;
 }
 
 endwhile; endif; // end of builder_repeater
