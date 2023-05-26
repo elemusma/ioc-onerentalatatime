@@ -1,6 +1,6 @@
 <?php
 
-function onerentalatatime_stylesheets() {
+function buildup_stylesheets() {
 	wp_enqueue_style('style', get_stylesheet_uri() );
 
 	wp_enqueue_style('bootstrap', get_theme_file_uri('/css/bootstrap.min.css'));
@@ -34,15 +34,17 @@ wp_enqueue_style('btn', get_theme_file_uri('/css/elements/btn.css'));
 // fonts
 wp_enqueue_style('fonts', get_theme_file_uri('/css/elements/fonts.css'));
 wp_enqueue_style('proxima-nova', get_theme_file_uri('/proxima-nova/proxima-nova.css'));
-wp_enqueue_style('blair-itc', get_theme_file_uri('/blair-itc/blair-itc.css'));
-wp_enqueue_style('aspira', get_theme_file_uri('/aspira-font/aspira-font.css'));
-wp_enqueue_style('coromant-garamond', '//use.typekit.net/fqe2slt.css');
+wp_enqueue_style('kinescope', '//use.typekit.net/dhv5sva.css');
+
+// wp_enqueue_style('blair-itc', get_theme_file_uri('/blair-itc/blair-itc.css'));
+// wp_enqueue_style('aspira', get_theme_file_uri('/aspira-font/aspira-font.css'));
+// wp_enqueue_style('coromant-garamond', '//use.typekit.net/fqe2slt.css');
 
 }
-add_action('wp_enqueue_scripts', 'onerentalatatime_stylesheets');
+add_action('wp_enqueue_scripts', 'buildup_stylesheets');
 
 // for footer
-function onerentalatatime_stylesheets_footer() {
+function buildup_stylesheets_footer() {
 	// wp_enqueue_style('style-footer', get_theme_file_uri('/css/style-footer.css'));
 	// owl carousel
 	wp_enqueue_style('owl.carousel.min', get_theme_file_uri('/owl-carousel/owl.carousel.min.css'));
@@ -78,7 +80,7 @@ function onerentalatatime_stylesheets_footer() {
 		}
 	}
 	
-add_action('get_footer', 'onerentalatatime_stylesheets_footer');
+add_action('get_footer', 'buildup_stylesheets_footer');
 
 // loads enqueued javascript files deferred
 function mind_defer_scripts( $tag, $handle, $src ) {
@@ -102,7 +104,7 @@ function mind_defer_scripts( $tag, $handle, $src ) {
   } 
   add_filter( 'script_loader_tag', 'mind_defer_scripts', 10, 3 );
 
-function onerentalatatime_menus() {
+function buildup_menus() {
  register_nav_menus( array(
    'primary' => __( 'Primary' )));
 register_nav_menus( array(
@@ -112,7 +114,7 @@ register_nav_menus( array(
  add_theme_support('post-thumbnails');
 }
 
-add_action('after_setup_theme', 'onerentalatatime_menus');
+add_action('after_setup_theme', 'buildup_menus');
 
 if( function_exists('acf_add_options_page') ) {
 
@@ -282,10 +284,8 @@ function get_latest_videos_from_youtube_channel() {
     $searchResponse = $youtube->search->listSearch('id,snippet', array(
         // 'channelId' => $GLOBALS['youtube'],
         'channelId' => 'UCNlzIzvhDCggZYg5DU-jQ5g',
-        // 'channelId' => 'UCzDAvtSdnoLEz_re0ABaANg',
-        // 'channelId' => 'UCb2EJvSa8WRBFLzYXgJFf5g',
-        // 'channelId' => 'OneRentalataTime',
-		// 'forUsername' => 'OneRentalataTime',
+        // 'channelId' => 'UCNlzIzvhDCggZYg5DU-jQ5g',
+		// 'forUsername' => 'buildup',
         'type' => 'video',
         'order' => 'date',
         'maxResults' => 4,
@@ -295,7 +295,7 @@ function get_latest_videos_from_youtube_channel() {
     ob_start();
 	echo '<div class="row">';
     foreach ($searchResponse['items'] as $searchResult) {
-		echo '<div class="col-lg-6 mb-3">';
+		echo '<div class="col-lg-4 mb-3">';
         echo '<div class="video">';
         // echo '<h3>' . $searchResult['snippet']['title'] . '</h3>';
         // echo '<p>' . $searchResult['snippet']['description'] . '</p>';
@@ -308,55 +308,3 @@ function get_latest_videos_from_youtube_channel() {
 }
 
 add_shortcode('youtube_videos', 'get_latest_videos_from_youtube_channel');
-
-
-
-// ENABLE WOOCOMMERCE
-// add_action('after_setup_theme',function() {
-//     add_theme_support('woocommerce');
-// });
-// add_theme_support('wc-product-gallery-zoom');
-// add_theme_support('wc-product-gallery-lightbox');
-// add_theme_support('wc-product-gallery-slider');
-
-
-// WOOCOMMERCE CONTENT WITH NO SIDEBAR
-// add_action('woocommerce_before_main_content','add_container_class',9);
-// function add_container_class(){
-// echo '<div class="container pt-5 pb-5">';
-// echo '<div class="row justify-content-center">';
-// echo '<div class="col-md-12">';
-// }
-
-// add_action('woocommerce_after_main_content','close_container_class',9);
-// function close_container_class(){
-// echo '</div>';
-// echo '</div>';
-// echo '</div>';
-// }
-
-// removes sidebar
-// remove_action('woocommerce_sidebar','woocommerce_get_sidebar');
-
-
-
-// WOOCOMMERCE CONTENT WITH CUSTOM SIDEBAR
-// add_action('woocommerce_before_main_content','add_container_class',9);
-// function add_container_class(){
-// echo '<div class="container pt-5 pb-5" style="">';
-// echo '<div class="row">';
-
-// echo get_template_part('partials/sidebar');
-
-// echo '<div class="col-md-9 order-1 order-md-2">';
-// }
-
-// add_action('woocommerce_after_main_content','close_container_class',9);
-// function close_container_class(){
-// echo '</div>';
-// echo '</div>';
-// echo '</div>';
-// }
-
-// removes sidebar
-// remove_action('woocommerce_sidebar','woocommerce_get_sidebar');
